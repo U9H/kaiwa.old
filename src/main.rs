@@ -1,3 +1,5 @@
+extern crate actix_web;
+
 use actix_web::{server, App, Path, Responder};
 
 fn index(info: Path<(String, u32)>) -> impl Responder {

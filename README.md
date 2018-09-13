@@ -9,8 +9,8 @@ Kaiwa is an opinionated, self-hosted, and simple commenting system.  It's meant 
 You'll need `docker`.
 
 ```
-docker build -t kaiwa-server .
-docker run -p 3000:80 kaiwa-server
+docker-compose build
+docker-compose run kaiwa-server
 ```
 
 

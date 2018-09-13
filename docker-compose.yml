@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+  kaiwa-server:
+    build: ./
+    volumes:
+      - ./:/app
+    ports:
+      - "8080:80"
+    tty: true
+    command: "/bin/sh"
