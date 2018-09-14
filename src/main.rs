@@ -1,14 +1,19 @@
 extern crate actix_web;
+use actix_web::{server, App, HttpRequest};
 
-use actix_web::{server, App, Path, Responder};
+fn index(_req: &HttpRequest) -> &'static str {
+    "Hello world!"
+}
 
-fn index(info: Path<(String, u32)>) -> impl Responder {
-    format!("Hello {}! id:{}", info.0, info.1)
+fn loopback(_req: &HttpRequest) -> String {
+    format!("{:?}", _req)
 }
 
 fn main() {
-    server::new(|| App::new().resource("/{name}/{id}/index.html", |r| r.with(index)))
-        .bind("127.0.0.1:8080")
-        .unwrap()
-        .run();
+    server::new(|| App::new()
+        .resource("/", |r| r.f(index))
+        .resource("/{name}", |r| r.f(loopback)))
+            .bind("127.0.0.1:8080")
+            .unwrap()
+            .run();
 }
