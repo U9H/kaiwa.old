@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["Alexander Lozada <alex@u9h.design>"]
 
 [dependencies]
-actix-web = "0.7.7"
+actix-web = { git = "https://github.com/actix/actix-web" }
