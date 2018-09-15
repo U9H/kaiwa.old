@@ -1,6 +1,6 @@
 # Kaiwa
 
-Kaiwa is an opinionated, self-hosted, and simple commenting system.  It's meant for static sites & created with Rust / Actix.  It uses containers and is meant to be run on cheap servers.
+Kaiwa is an opinionated, self-hosted, and simple commenting system.  It's meant for static sites & created with Rust.  It uses containers and is meant to be run on cheap servers.
 
 ## Inspiration
 

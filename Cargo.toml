@@ -3,5 +3,14 @@ name = "kaiwa"
 version = "0.1.0"
 authors = ["Alexander Lozada <alex@u9h.design>"]
 
+[lib]
+name = "kaiwa_lib"
+path = "src/kaiwa/lib.rs"
+
+[[bin]]
+name = "kaiwa"
+path = "src/main.rs"
+
 [dependencies]
-actix-web = { git = "https://github.com/actix/actix-web" }
+actix-web = "0.7.7"
+failure = "0.1.2"
