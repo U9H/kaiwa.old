@@ -1,23 +1,17 @@
 #![feature(try_trait)]
 extern crate actix_web;
-extern crate kaiwa_lib;
-use kaiwa_lib::app::error::Error as AppError;
-use kaiwa_lib::error::Error;
 
-use actix_web::{server, App, HttpRequest, Result};
+mod kaiwa;
+
+use actix_web::{http::Method, pred, server, App, Result};
+use kaiwa::server_error::Error as ServerError;
+
 static PORT: &'static str = "3000";
 
-fn index(req: &HttpRequest) -> std::result::Result<String, Error> {
-    let site = req.match_info().get("site")?;
-    Ok(format!("{}", site))
-}
-
-fn main() -> Result<(), AppError> {
-    let backend = server::new(|| {
-        App::new()
-            .resource("/", |r| r.f(index))
-            .resource("/{site}", |r| r.f(index))
-    }).bind(format!("127.0.0.1:{}", PORT))?;
+fn main() -> Result<(), ServerError> {
+    let backend =
+        server::new(|| App::new().route("/", Method::GET, kaiwa::controllers::comments::read))
+            .bind(format!("127.0.0.1:{}", PORT))?;
     backend.run();
     Ok(())
 }

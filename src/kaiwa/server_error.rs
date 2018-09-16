@@ -1,3 +1,5 @@
+//! Helpful errors for the main application.
+
 use std;
 
 #[derive(Debug)]

@@ -506,7 +506,6 @@ name = "kaiwa"
 version = "0.1.0"
 dependencies = [
  "actix-web 0.7.7 (registry+https://github.com/rust-lang/crates.io-index)",
- "failure 0.1.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]
