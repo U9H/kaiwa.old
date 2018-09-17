@@ -5,3 +5,6 @@ authors = ["Alexander Lozada <alex@u9h.design>"]
 
 [dependencies]
 actix-web = "0.7"
+serde = "*"
+serde_derive = "*"
+chrono = { version = "*", features = ["serde"] }

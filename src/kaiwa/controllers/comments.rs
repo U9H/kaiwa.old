@@ -1,9 +1,10 @@
-use actix_web::{HttpRequest, HttpResponse, Path};
-use kaiwa::error::Error;
+use actix_web::{Form, HttpRequest, HttpResponse, Path};
+use kaiwa::{
+    error::Error,
+    models::comment::{Comment, CommentForm},
+};
 
-/// Get all comments, site-wide
-pub fn create(req: &HttpRequest) -> Result<HttpResponse, Error> {
-    let id = req.match_info().get("id")?;
+pub fn create(params: Form<CommentForm>) -> Result<HttpResponse, Error> {
     Ok(HttpResponse::Ok().into())
 }
 
@@ -11,10 +12,10 @@ pub fn read(path: Path<u32>) -> Result<HttpResponse, Error> {
     Ok(HttpResponse::Ok().into())
 }
 
-pub fn update(req: &HttpRequest) -> Result<HttpResponse, Error> {
+pub fn update(path: Path<u32>) -> Result<HttpResponse, Error> {
     Ok(HttpResponse::Ok().into())
 }
 
-pub fn destroy(req: &HttpRequest) -> Result<HttpResponse, Error> {
+pub fn destroy(path: Path<u32>) -> Result<HttpResponse, Error> {
     Ok(HttpResponse::Ok().into())
 }
