@@ -1,40 +1,34 @@
 use chrono::{DateTime, Utc};
+use schema::comments;
 use serde_derive::Deserialize;
-use std;
 
-#[derive(Deserialize)]
-pub struct CommentForm {
-    name: Option<String>,
-    comment: String,
-    page_id: u32,
-}
-
-impl Default for CommentForm {
-    fn default() -> Self {
-        CommentForm {
-            name: None,
-            comment: String::new(),
-            page_id: 0,
-        }
-    }
-}
-
+// Base data structure for a product
+#[derive(Deserialize, Serialize, Queryable)]
+#[primary_key(id)]
+#[table_name = "comments"]
 pub struct Comment {
-    id: u32,
-    page_id: u32,
-    // User can be anonymous
-    name: Option<String>,
-    comment: String,
-    created_at: DateTime<Utc>,
+    pub id: u32,
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub access_code: String,
+    pub comment: String,
+    pub created_at: date::DateTime,
 }
 
-impl Comment {
-    /// Generate a serializable version of the comment
-    pub fn into_params(self) -> CommentForm {
-        CommentForm {
-            name: self.name,
-            comment: self.comment,
-            page_id: self.page_id,
-        }
-    }
+/// Used when creating products
+#[derive(Serialize, Deserialize, Insertable)]
+#[table_name = "comments"]
+pub struct NewComment {
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub comment: String,
+}
+
+/// Used when updating products
+#[derive(AsChangeset, Identifiable, Deserialize, Serialize)]
+#[table_name = "comments"]
+pub struct ProductForm {
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub comment: Option<String>,
 }

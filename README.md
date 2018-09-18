@@ -6,20 +6,19 @@ Kaiwa is an opinionated, self-hosted, and simple commenting system.  It's meant 
 
 ## Usage
 
-You'll need `docker`.
+You'll need `docker`.  **Note to windows users: Please don't do that.  I'm trying to dev on windows, and it sucks.  Just get a VM or something.**
 
 ```
 docker-compose build
 docker-compose run kaiwa-server
 ```
 
-
 ## API endpoints
 TBD
 
 ## What will be implemented
 - [ ] Multiple domain support
-- [ ] Question types
+- [ ] Question / Arbitrary comment data
 - [ ] Per-page threads
 - [ ] Spam mitigation
 

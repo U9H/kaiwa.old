@@ -1,21 +1,11 @@
-use actix_web::{Form, HttpRequest, HttpResponse, Path};
-use kaiwa::{
-    error::Error,
-    models::comment::{Comment, CommentForm},
-};
+use kaiwa::{error::Error, models::comment::Comment};
+use rocket::response::content::Json;
 
-pub fn create(params: Form<CommentForm>) -> Result<HttpResponse, Error> {
-    Ok(HttpResponse::Ok().into())
-}
-
-pub fn read(path: Path<u32>) -> Result<HttpResponse, Error> {
-    Ok(HttpResponse::Ok().into())
-}
-
-pub fn update(path: Path<u32>) -> Result<HttpResponse, Error> {
-    Ok(HttpResponse::Ok().into())
-}
-
-pub fn destroy(path: Path<u32>) -> Result<HttpResponse, Error> {
-    Ok(HttpResponse::Ok().into())
+#[post("/comments", data = "<comment>")]
+fn create(comment: Json<Comment>, connection: db::Connection) -> Json<Comment> {
+    let insert = Comment {
+        id: None,
+        ..comment.into_inner()
+    };
+    Json(Comment::create(insert, &connection))
 }

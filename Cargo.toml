@@ -4,7 +4,9 @@ version = "0.1.0"
 authors = ["Alexander Lozada <alex@u9h.design>"]
 
 [dependencies]
-actix-web = "0.7"
+rocket = "0.3.16"
+rocket_codegen = "0.3.16"
 serde = "*"
 serde_derive = "*"
+diesel = { version = "1.0.0", features = ["postgres"] }
 chrono = { version = "*", features = ["serde"] }
