@@ -1,0 +1,6 @@
+CREATE TABLE sites (
+  id SERIAL PRIMARY KEY,
+  domain VARCHAR NOT NULL,
+  api_key VARCHAR NOT NULL,
+  created_at TIMESTAMP NOT NULL
+)

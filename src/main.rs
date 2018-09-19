@@ -1,6 +1,7 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 #![feature(custom_attribute)]
+#![allow(proc_macro_derive_resolution_fallback)]
 
 extern crate chrono;
 extern crate rocket;
@@ -18,10 +19,7 @@ mod kaiwa;
 
 use dotenv::dotenv;
 use std::env;
-use kaiwa::db::DbConn;
 use kaiwa::db;
-
-static PORT: &'static str = "3000";
 
 fn main() {
     dotenv().ok();
@@ -30,7 +28,8 @@ fn main() {
 
     rocket::ignite()
         .manage(db::init(&database_url))
-        .mount("/", routes![index]).launch();
+        .mount("/", routes![index])
+        .launch();
 }
 
 #[get("/")]

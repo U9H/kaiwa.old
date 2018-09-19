@@ -1,12 +1,13 @@
 use chrono::{DateTime, Utc};
-use super::schema::comments;
-use serde_derive::Deserialize;
+use kaiwa::models::page::Page;
+use kaiwa::schema::{comments};
+use serde_derive::{Deserialize, Serialize};
 
 // Base data structure for a product
-#[derive(Deserialize, Serialize, Queryable)]
-#[primary_key(id)]
-#[table_name = "comments"]
+#[derive(Deserialize, Serialize, Identifiable, Queryable, Associations)]
+#[belongs_to(Page)]
 pub struct Comment {
+    pub page_id: u32,
     pub id: u32,
     pub name: Option<String>,
     pub email: Option<String>,
