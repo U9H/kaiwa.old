@@ -1,14 +1,11 @@
-FROM alpine:latest
+FROM rustlang/rust:nightly
 
-RUN apk update && \
-    apk upgrade && \
-    apk add rust cargo \
-    apk add postgresql-dev \
-    rustup default nightly
-RUN cargo install diesel_cli --no-default-features --features postgres
-RUN diesel setup
+RUN apt update && \
+    apt upgrade -y
 
-EXPOSE 80
 WORKDIR /app
-
-RUN cargo run --release --verbose
+RUN apt install -y libpq-dev postgresql
+RUN cargo install diesel_cli --no-default-features --features postgres
+RUN service postgresql start
+# RUN diesel setup
+EXPOSE 3000
