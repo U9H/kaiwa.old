@@ -10,25 +10,25 @@ use rocket::request::{self, FromRequest};
 use rocket::{Outcome, Request, State};
 use std::ops::Deref;
 /// Db Connection request guard type: wrapper around r2d2 pooled connection
-pub struct DbConn(pub r2d2::PooledConnection<ManagedPgConn>);
+pub struct Conn(pub r2d2::PooledConnection<ManagedPgConn>);
 
 /// Attempts to retrieve a single connection from the managed database pool. If
 /// no pool is currently managed, fails with an `InternalServerError` status. If
 /// no connections are available, fails with a `ServiceUnavailable` status.
-impl<'a, 'r> FromRequest<'a, 'r> for DbConn {
+impl<'a, 'r> FromRequest<'a, 'r> for Conn {
     type Error = ();
 
-    fn from_request(request: &'a Request<'r>) -> request::Outcome<DbConn, ()> {
+    fn from_request(request: &'a Request<'r>) -> request::Outcome<Conn, ()> {
         let pool = request.guard::<State<Pool>>()?;
         match pool.get() {
-            Ok(conn) => Outcome::Success(DbConn(conn)),
+            Ok(conn) => Outcome::Success(Conn(conn)),
             Err(_) => Outcome::Failure((Status::ServiceUnavailable, ())),
         }
     }
 }
 
-// For the convenience of using an &DbConn as an &PgConnection.
-impl Deref for DbConn {
+// For the convenience of using an &Conn as an &PgConnection.
+impl Deref for Conn {
     type Target = PgConnection;
 
     fn deref(&self) -> &Self::Target {

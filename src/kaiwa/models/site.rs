@@ -4,7 +4,9 @@ use serde_derive::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Identifiable, Queryable)]
 pub struct Site {
-    pub id: u32,
+    pub id: usize,
+    /// Domain of the requester.  For example, `https://mysite.com/test/path`
+    /// will be `mysite.com`.
     pub domain: String,
     pub api_key: String,
     pub created_at: DateTime<Utc>,
@@ -19,6 +21,6 @@ pub struct NewSite<'a> {
 #[derive(AsChangeset, Identifiable, Deserialize, Serialize)]
 #[table_name = "sites"]
 pub struct SiteForm {
-    pub id: u32,
+    pub id: usize,
     pub domain: Option<String>,
 }

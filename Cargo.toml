@@ -8,8 +8,10 @@ rocket = "0.3.16"
 rocket_codegen = "0.3.16"
 serde = "*"
 serde_derive = "*"
-diesel = { version = "1.0.0", features = ["postgres", "r2d2"] }
+diesel = { version = "1.0.0", features = ["postgres", "r2d2", "chrono"] }
 r2d2 = "*"
 rocket_contrib = "*"
 chrono = { version = "*", features = ["serde"] }
 dotenv = "*"
+percent-encoding = "*"
+failure = "*"

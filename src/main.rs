@@ -1,8 +1,11 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 #![feature(custom_attribute)]
+#![feature(custom_derive)]
 #![allow(proc_macro_derive_resolution_fallback)]
 
+#[macro_use]
+extern crate failure;
 extern crate chrono;
 extern crate rocket;
 extern crate serde;
@@ -14,13 +17,14 @@ extern crate rocket_contrib;
 extern crate r2d2;
 #[macro_use]
 extern crate serde_derive;
+extern crate percent_encoding;
 
 mod kaiwa;
 
+use kaiwa::controllers as c;
 use dotenv::dotenv;
 use std::env;
 use kaiwa::db;
-
 fn main() {
     dotenv().ok();
 
@@ -28,11 +32,10 @@ fn main() {
 
     rocket::ignite()
         .manage(db::init(&database_url))
-        .mount("/", routes![index])
+        .mount("/", routes![
+            c::comments::read,
+            c::comments::create,
+        ])
         .launch();
 }
 
-#[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
-}
