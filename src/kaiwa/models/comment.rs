@@ -1,8 +1,8 @@
 use chrono::{NaiveDateTime, Utc};
-use kaiwa::models::page::Page;
-use kaiwa::schema::{comments};
-use serde_derive::{Deserialize, Serialize};
 use kaiwa::db::Conn;
+use kaiwa::models::page::Page;
+use kaiwa::schema::comments;
+use serde_derive::{Deserialize, Serialize};
 
 #[derive(Deserialize, Serialize, Identifiable, Queryable, Associations)]
 #[belongs_to(Page)]
